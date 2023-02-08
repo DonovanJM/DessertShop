@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17e8f210-052d-4303-8036-9091827c23ae" name="Changes" comment="" />
+    <list default="true" id="17e8f210-052d-4303-8036-9091827c23ae" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/candy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cookie.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dessert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dessertshop.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/freeze.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icecream.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sundae.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_dessert.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +28,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2LTfLRLMBj0b1L7kLlExHPq861H" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
