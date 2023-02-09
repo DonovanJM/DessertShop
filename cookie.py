@@ -41,7 +41,7 @@ class Cookie(DessertItem, Combinable):
         return this_string
 
     def can_combine(self, other: "Cookie"):
-        if other.name == self.name and other.price_per_dozen == self.price_per_dozen:
+        if other.name == self.name and other == self:
             return True
         return False
 

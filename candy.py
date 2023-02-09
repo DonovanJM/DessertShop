@@ -50,6 +50,5 @@ class Candy(DessertItem, Combinable):
         if self.can_combine(other):
             self.candy_weight += other.candy_weight
             del other
-            return self
         else:
             raise ValueError("Candies are not the same.")

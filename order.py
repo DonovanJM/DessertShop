@@ -16,7 +16,20 @@ class Order:
                     self.order[j] = temp
 
     def add(self, dessert_item):
-        self.order.append(dessert_item)
+        print("adding")
+        if len(self.order) > 0:
+            print("not first item")
+            print(len(self.order))
+            for i in range(len(self.order) - 1):
+                print("checking")
+                if dessert_item.can_combine(self.order[i]):
+                    print("combinable")
+                    dessert_item.combine(self.order[i])
+                else:
+                    self.order.append(dessert_item)
+        else:
+            print("first item")
+            self.order.append(dessert_item)
 
     def item_count(self):
         return len(self.order)
