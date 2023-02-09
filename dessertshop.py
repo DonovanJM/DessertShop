@@ -32,7 +32,10 @@ def main_menu(freezer):
         else:
             print("Invalid dessert type, please enter 1-4.")
     #real_order.combine_order()
+    real_order.sort_order()
     real_order.__str__()
+    if input("Would you like to start another order?").lower() == "y":
+        main_menu(freezer)
 
 
 def user_prompt_candy():

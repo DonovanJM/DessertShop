@@ -2,6 +2,7 @@ from cookie import Cookie
 from icecream import IceCream
 from sundae import Sundae
 from candy import Candy
+from customer import Customer
 
 chocolate_chip = Cookie()
 other_cookie = Cookie("Chocolate", 134, 9.99)
@@ -11,7 +12,7 @@ twix = Candy()
 hershey = Candy("Hershey", 12, 4.99)
 sundae1 = Sundae()
 sundae2 = Sundae("Vanilla", 123, 1.99, "Hot Fudge", .99)
-
+customer1 = Customer()
 
 def test_cookie_default():
     assert chocolate_chip.cookie_quantity == 13
@@ -44,6 +45,11 @@ def test_sundae_default():
     assert sundae1.topping_price == .99
 
 
+def test_customer():
+    assert customer1.customer_id == 123456789
+    assert customer1.customer_name == "John Doe"
+
+
 def main():
     """Testing default values of cookie object"""
     test_cookie_default()
@@ -62,6 +68,7 @@ def main():
     twix.test_calculate_tax()
     vanilla.test_calculate_tax()
     sundae1.test_calculate_tax()
+    test_customer()
 
 
 if __name__ == "__main__":

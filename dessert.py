@@ -6,6 +6,30 @@ class DessertItem(ABC):
         self.name = name
         self.tax_percentage = .0725
 
+    def __eq__(self, other):
+        if self.calculate_cost() == other.calculate_cost():
+            return True
+
+    def __neg__(self, other):
+        if self.calculate_cost() != other.calculate_cost():
+            return True
+
+    def __lt__(self, other):
+        if self.calculate_cost() < other.calculate_cost():
+            return True
+
+    def __gt__(self, other):
+        if self.calculate_cost() > other.calculate_cost():
+            return True
+
+    def __ge__(self, other):
+        if self.calculate_cost() >= other.calculate_cost():
+            return True
+
+    def __le__(self, other):
+        if self.calculate_cost() <= other.calculate_cost():
+            return True
+
     @abstractmethod
     def calculate_cost(self):
         pass

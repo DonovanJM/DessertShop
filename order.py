@@ -1,39 +1,22 @@
 from payment import Payment
-from cookie import Cookie
-from candy import Candy
 
 
-class Order(Cookie):
+class Order:
     def __init__(self):
+        super().__init__()
         self.order = []
         self.pay_type = Payment.pay_type.CASH
 
+    def sort_order(self):
+        for i in range(len(self.order)):
+            for j in range(i+1, len(self.order)):
+                if self.order[i] > self.order[j]:
+                    temp = self.order[i]
+                    self.order[i] = self.order[j]
+                    self.order[j] = temp
+
     def add(self, dessert_item):
-        original_type = type(dessert_item)
-        if original_type == Cookie:
-            print("Type Cookie")
-            print(len(self.order))
-            for i in range(len(self.order) - 1):
-                print("Looping")
-                current_type = type(self.order[i])
-                if current_type != Cookie or current_type != Candy:
-                    print("item is being appended")
-                    self.order.append(dessert_item)
-                else:
-                    if self.order[i].name == dessert_item.name and self.order[i].price_per_dozen == dessert_item.price_per_dozen:
-                        print("item is being combined")
-                        self.order[i].cookie_quantity += dessert_item.cookie_quantity
-                        return
-        elif original_type == Candy:
-            print("Type Candy")
-            for j in range(len(self.order) - 1):
-                if self.order[j].name == dessert_item.name and self.order[j].price_per_pound == dessert_item.price_per_pound:
-                    print("item combined")
-                    self.order[j].candy_weight += dessert_item.candy_weight
-                    return
-                else:
-                    print("item appended")
-                    self.order.append(dessert_item)
+        self.order.append(dessert_item)
 
     def item_count(self):
         return len(self.order)
@@ -58,6 +41,7 @@ class Order(Cookie):
     # break
 
     def __str__(self):
+
         def get_payment_type():
             pay_type = input("What form of payment will be used? (CASH, CARD, PHONE): ")
             if pay_type == "Cash" or pay_type == "cash":
