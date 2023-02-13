@@ -9,7 +9,7 @@ class Order:
 
     def sort_order(self):
         for i in range(len(self.order)):
-            for j in range(i+1, len(self.order)):
+            for j in range(i + 1, len(self.order)):
                 if self.order[i] > self.order[j]:
                     temp = self.order[i]
                     self.order[i] = self.order[j]
@@ -66,6 +66,7 @@ class Order:
                 print("That is not a valid payment method. Please enter('Cash', 'Card or 'Phone')")
                 get_payment_type()
 
+        customer_name = input("Customer Name: ")
         get_payment_type()
         print("------------Receipt---------------")
         for i in range(len(self.order)):

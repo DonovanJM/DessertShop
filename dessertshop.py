@@ -4,6 +4,9 @@ from candy import Candy
 from cookie import Cookie
 from icecream import IceCream
 from sundae import Sundae
+from customer import Customer
+
+customer_db = {}
 
 
 def main_menu(freezer):
@@ -16,22 +19,22 @@ def main_menu(freezer):
             a = user_prompt_candy()
             real_order.add(a)
         elif treat_type == "2":
-            #freezer.take(Cookie)
+            # freezer.take(Cookie)
             a = user_prompt_cookie()
             real_order.add(a)
         elif treat_type == "3":
-            #freezer.take(IceCream)
+            # freezer.take(IceCream)
             a = user_prompt_icecream()
             real_order.add(a)
         elif treat_type == "4":
-            #freezer.take(Sundae)
+            # freezer.take(Sundae)
             a = user_prompt_sundae()
             real_order.add(a)
         elif treat_type == "":
             i = 1
         else:
             print("Invalid dessert type, please enter 1-4.")
-    #real_order.combine_order()
+    # real_order.combine_order()
     real_order.sort_order()
     real_order.__str__()
     if input("Would you like to start another order?").lower() == "y":
@@ -132,9 +135,9 @@ def main():
     icecream = IceCream()
     sundae = Sundae()
     freezer = Freezer()
-    #freezer.put(cookie)
-    #freezer.put(icecream)
-    #freezer.put(sundae)
+    # freezer.put(cookie)
+    # freezer.put(icecream)
+    # freezer.put(sundae)
     main_menu(freezer)
 
 
