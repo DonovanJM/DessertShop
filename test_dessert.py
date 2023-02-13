@@ -14,6 +14,7 @@ sundae1 = Sundae()
 sundae2 = Sundae("Vanilla", 123, 1.99, "Hot Fudge", .99)
 customer1 = Customer()
 
+
 def test_cookie_default():
     assert chocolate_chip.cookie_quantity == 13
     assert chocolate_chip.price_per_dozen == 9.99
