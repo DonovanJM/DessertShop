@@ -5,12 +5,24 @@ from cookie import Cookie
 from icecream import IceCream
 from sundae import Sundae
 from customer import Customer
+import random
 
 customer_db = {}
+id_db = []
 
 
 def main_menu(freezer):
     real_order = Order()
+    real_customer = Customer
+
+    def check_id(customer: Customer):
+        if customer.customer_id in id_db:
+            customer.customer_id = random.randint(1, 100000000)
+            check_id(customer)
+        else:
+            id_db.append(customer.customer_id)
+
+    check_id(real_customer)
     i = 0
     while i == 0:
         treat_type = input("1: Candy\n2: Cookie\n3: Ice Cream\n4: Sundae\nWhat would you like to add to the order? "
@@ -36,7 +48,14 @@ def main_menu(freezer):
             print("Invalid dessert type, please enter 1-4.")
     # real_order.combine_order()
     real_order.sort_order()
-    real_order.__str__()
+    current_name = real_order.__str__()
+    if current_name in customer_db.keys():
+        current_customer = customer_db.get(current_name)
+        current_customer.add2history(real_order)
+    else:
+        real_customer.customer_name = current_name
+        real_customer.add2history(real_order)
+        customer_db[current_name] = real_customer
     if input("Would you like to start another order?").lower() == "y":
         main_menu(freezer)
 

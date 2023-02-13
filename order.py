@@ -9,26 +9,18 @@ class Order:
 
     def sort_order(self):
         for i in range(len(self.order)):
-            for j in range(i + 1, len(self.order)):
+            for j in range(i+1, len(self.order)):
                 if self.order[i] > self.order[j]:
                     temp = self.order[i]
                     self.order[i] = self.order[j]
                     self.order[j] = temp
 
     def add(self, dessert_item):
-        try:
-            if callable(getattr(dessert_item, "combine")):
-                for i in range(len(self.order)):
-                    if self.order[i].can_combine(dessert_item):
-                        self.order[i].combine(dessert_item)
-                        return
-                    self.order.append(dessert_item)
-                    return
-            else:
+        for i in range(len(self.order)):
+            if len(self.order) == 1:
+                print("first item")
                 self.order.append(dessert_item)
-                return
-        except AttributeError:
-            self.order.append(dessert_item)
+        self.order.append(dessert_item)
 
     def item_count(self):
         return len(self.order)
@@ -65,8 +57,7 @@ class Order:
             else:
                 print("That is not a valid payment method. Please enter('Cash', 'Card or 'Phone')")
                 get_payment_type()
-
-        customer_name = input("Customer Name: ")
+        customer_name = input("Enter the customer name: ")
         get_payment_type()
         print("------------Receipt---------------")
         for i in range(len(self.order)):
@@ -86,3 +77,4 @@ class Order:
         print(that_string)
         print("------------------------------------------------------")
         print(f"Paid with {self.pay_type.value}")
+        return customer_name
