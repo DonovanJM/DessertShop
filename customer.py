@@ -15,6 +15,6 @@ class Customer:
         self.order_count += 1
         return Customer
 
-    def customer_information(self):
+    def __str__(self):
         print(f"Customer Name: {self.customer_name} Customer ID: {self.customer_id} "
               f"Total Orders: {self.order_count}")
