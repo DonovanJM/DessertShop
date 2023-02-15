@@ -77,3 +77,4 @@ class Order:
         print(that_string)
         print("------------------------------------------------------")
         print(f"Paid with {self.pay_type.value}")
+        print("-------------------------------------------------------")

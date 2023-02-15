@@ -59,10 +59,9 @@ def main_menu(freezer):
     # real_order.combine_order()
     real_order.sort_order()
     real_order.__str__()
-    a = check_customer(customer_db, real_order)
-    a.customer_information()
+    check_customer(customer_db, real_order).customer_information()
 
-    if input("Would you like to start another order?").lower() == "y":
+    if input("Press y and Enter to start a new order").lower() == "y":
         main_menu(freezer)
 
 
