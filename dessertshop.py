@@ -5,24 +5,34 @@ from cookie import Cookie
 from icecream import IceCream
 from sundae import Sundae
 from customer import Customer
-import random
+import pickle
 
-customer_db = {}
-id_db = []
+
+def check_customer(customer_db, real_order):
+    current_name = real_order.customer_name
+    if current_name not in customer_db.keys():
+        real_customer = Customer(current_name)
+        customer_db[current_name] = real_customer
+        real_customer.add2history(real_order)
+        the_real_customer = real_customer
+    else:
+        old_customer = customer_db[current_name]
+        old_customer.add2history(real_order)
+        customer_db[current_name] = old_customer
+        the_real_customer = old_customer
+
+    pickle_out = open("customer.pickle", "wb")
+    pickle.dump(customer_db, pickle_out)
+    pickle_out.close()
+    return the_real_customer
 
 
 def main_menu(freezer):
     real_order = Order()
-    real_customer = Customer
-
-    def check_id(customer: Customer):
-        if customer.customer_id in id_db:
-            customer.customer_id = random.randint(1, 100000000)
-            check_id(customer)
-        else:
-            id_db.append(customer.customer_id)
-
-    check_id(real_customer)
+    try:
+        customer_db = pickle.load(open("customer.pickle", "rb"))
+    except EOFError:
+        customer_db = {}
     i = 0
     while i == 0:
         treat_type = input("1: Candy\n2: Cookie\n3: Ice Cream\n4: Sundae\nWhat would you like to add to the order? "
@@ -48,14 +58,10 @@ def main_menu(freezer):
             print("Invalid dessert type, please enter 1-4.")
     # real_order.combine_order()
     real_order.sort_order()
-    current_name = real_order.__str__()
-    if current_name in customer_db.keys():
-        current_customer = customer_db.get(current_name)
-        current_customer.add2history(real_order)
-    else:
-        real_customer.customer_name = current_name
-        real_customer.add2history(real_order)
-        customer_db[current_name] = real_customer
+    real_order.__str__()
+    a = check_customer(customer_db, real_order)
+    a.customer_information()
+
     if input("Would you like to start another order?").lower() == "y":
         main_menu(freezer)
 
@@ -150,9 +156,9 @@ def user_prompt_sundae():
 
 
 def main():
-    cookie = Cookie()
-    icecream = IceCream()
-    sundae = Sundae()
+    # cookie = Cookie()
+    # icecream = IceCream()
+    # sundae = Sundae()
     freezer = Freezer()
     # freezer.put(cookie)
     # freezer.put(icecream)

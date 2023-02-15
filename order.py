@@ -57,7 +57,7 @@ class Order:
             else:
                 print("That is not a valid payment method. Please enter('Cash', 'Card or 'Phone')")
                 get_payment_type()
-        customer_name = input("Enter the customer name: ")
+        self.customer_name = input("Enter the customer name: ")
         get_payment_type()
         print("------------Receipt---------------")
         for i in range(len(self.order)):
@@ -77,4 +77,3 @@ class Order:
         print(that_string)
         print("------------------------------------------------------")
         print(f"Paid with {self.pay_type.value}")
-        return customer_name
