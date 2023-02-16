@@ -182,33 +182,36 @@ def admin_prompt(customer_db):
             customer_db[i].__str__()
         admin_prompt(customer_db)
     elif a == "2":
-        searched_customer = input("Enter the name of the customer: ")
-        current_customer = customer_db[searched_customer]
-        count = 1
-        for i in current_customer.order_history:
+        searched_customer = input("Enter the name of the customer:\n")
+        try:
+            count = 1
+            current_customer = customer_db[searched_customer]
             print(f"Customer Name: {current_customer.customer_name}           Customer ID: "
-                  f"{current_customer.customer_id}\n"
-                  f"------------------------------------------------------------------\n"
-                  f"Order #: {count}")
-            print("------------Receipt---------------")
-            for j in range(len(i.order)):
-                print(i.order[j])
-            print("------------------------------------------------------")
-            print(f"Total items in the order: {i.item_count()}")
-            order_sub = "Order Subtotals:|"
-            order_total = "Order Total:"
-            order_num = f"${i.order_cost():0.2f}"
-            this_string = f"{order_sub:26}"
-            this_string += f"{order_num:24}"
-            this_string += f"[Tax: ${i.order_tax():0.2f}]"
-            print(f"{this_string}")
-            that_string = f"{order_total:50}"
-            x = i.order_cost() + i.order_tax()
-            that_string += f"${x:0.2f}"
-            print(that_string)
-            print("------------------------------------------------------")
-            print(f"Paid with {i.pay_type.value}.")
-            print("------------------------------------------------------")
+                  f"{current_customer.customer_id}\n------------------------------------------------------------------")
+            for i in current_customer.order_history:
+                print(f"Order #: {count}")
+                count += 1
+                print("----------------------------------Receipt--------------------------")
+                for j in range(len(i.order)):
+                    print(i.order[j])
+                print("----------------------------------------------------------------------")
+                print(f"Total items in the order: {i.item_count()}")
+                order_sub = "Order Subtotals: "
+                order_total = "Order Total: "
+                order_num = f"${i.order_cost():0.2f}"
+                this_string = f"{order_sub}"
+                this_string += f"{order_num}"
+                this_string += f" [Tax: ${i.order_tax():0.2f}]"
+                print(f"{this_string}")
+                that_string = f"{order_total}"
+                x = i.order_cost() + i.order_tax()
+                that_string += f"${x:0.2f}"
+                print(that_string)
+                print("---------------------------------------------------------------------------")
+                print(f"Paid for with {i.pay_type.value}.\n")
+        except KeyError:
+            print("Could not find customer")
+            admin_prompt(customer_db)
         admin_prompt(customer_db)
     elif a == "3":
         biggest = 0
