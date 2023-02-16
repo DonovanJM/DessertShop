@@ -16,5 +16,10 @@ class Customer:
         return Customer
 
     def __str__(self):
-        print(f"Customer Name: {self.customer_name} Customer ID: {self.customer_id} "
-              f"Total Orders: {self.order_count}")
+        first = f"Customer Name: {self.customer_name}"
+        second = f"Customer ID: {self.customer_id}"
+        third = f"Total Orders: {self.order_count}"
+        final = f"{first:30}"
+        final += f"{second:55}"
+        final += f"{third:20}"
+        print(final)
