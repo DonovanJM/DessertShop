@@ -193,7 +193,24 @@ def admin_prompt(customer_db):
                 count += 1
                 print("----------------------------------Receipt--------------------------")
                 for j in range(len(i.order)):
-                    print(i.order[j])
+                    current_item = i.order[j]
+                    if type(current_item) == Candy:
+                        print(f"{current_item.name} ({current_item.packaging}) {current_item.candy_weight:0.2f} lbs. @ "
+                              f"${current_item.price_per_pound:0.2f}/lb.: ${current_item.calculate_cost():0.2f} [Tax: $"
+                              f"{current_item.calculate_tax():0.2f}]")
+                    elif type(current_item) == Cookie:
+                        print(f"{current_item.name} ({current_item.packaging}) {current_item.cookie_quantity} cookies "
+                              f"@ ${current_item.price_per_dozen:0.2f}/dozen: ${current_item.calculate_cost():0.2f} "
+                              f"[Tax: ${current_item.calculate_tax():0.2f}]")
+                    elif type(current_item) == IceCream:
+                        print(f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
+                              f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
+                              f"${current_item.calculate_tax():0.2f}]")
+                    elif type(current_item) == Sundae:
+                        print(f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
+                              f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
+                              f"${current_item.calculate_tax():0.2f}]\n{current_item.topping_name} @ "
+                              f"${current_item.topping_price:0.2f}")
                 print("----------------------------------------------------------------------")
                 print(f"Total items in the order: {i.item_count()}")
                 order_sub = "Order Subtotals: "
