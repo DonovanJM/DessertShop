@@ -203,14 +203,16 @@ def admin_prompt(customer_db):
                               f"@ ${current_item.price_per_dozen:0.2f}/dozen: ${current_item.calculate_cost():0.2f} "
                               f"[Tax: ${current_item.calculate_tax():0.2f}]")
                     elif type(current_item) == IceCream:
-                        print(f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
-                              f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
-                              f"${current_item.calculate_tax():0.2f}]")
+                        print(
+                            f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
+                            f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
+                            f"${current_item.calculate_tax():0.2f}]")
                     elif type(current_item) == Sundae:
-                        print(f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
-                              f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
-                              f"${current_item.calculate_tax():0.2f}]\n{current_item.topping_name} @ "
-                              f"${current_item.topping_price:0.2f}")
+                        print(
+                            f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
+                            f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
+                            f"${current_item.calculate_tax():0.2f}]\n{current_item.topping_name} @ "
+                            f"${current_item.topping_price:0.2f}")
                 print("----------------------------------------------------------------------")
                 print(f"Total items in the order: {i.item_count()}")
                 order_sub = "Order Subtotals: "
@@ -251,7 +253,7 @@ def main():
     # cookie = Cookie()
     # icecream = IceCream()
     # sundae = Sundae()
-    #freezer = Freezer()
+    # freezer = Freezer()
     # freezer.put(cookie)
     # freezer.put(icecream)
     # freezer.put(sundae)
