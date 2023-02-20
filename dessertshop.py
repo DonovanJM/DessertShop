@@ -1,5 +1,4 @@
 from order import Order
-from freeze import Freezer
 from candy import Candy
 from cookie import Cookie
 from icecream import IceCream
@@ -204,12 +203,14 @@ def admin_prompt(customer_db):
                               f"[Tax: ${current_item.calculate_tax():0.2f}]")
                     elif type(current_item) == IceCream:
                         print(
-                            f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
+                            f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} "
+                            f"scoops "
                             f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
                             f"${current_item.calculate_tax():0.2f}]")
                     elif type(current_item) == Sundae:
                         print(
-                            f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} scoops "
+                            f"{current_item.name} Ice Cream ({current_item.packaging}) {current_item.scoop_count} "
+                            f"scoops "
                             f"@ ${current_item.price_per_scoop}/scoop: ${current_item.calculate_cost():0.2f} [Tax: "
                             f"${current_item.calculate_tax():0.2f}]\n{current_item.topping_name} @ "
                             f"${current_item.topping_price:0.2f}")
