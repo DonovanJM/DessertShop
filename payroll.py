@@ -2,7 +2,7 @@ import os
 import shutil
 
 employee_list = []
-PAY_LOGFILE = "payroll.txt"
+PAY_LOGFILE = "paylog.txt"
 
 
 class Employee:
@@ -24,8 +24,33 @@ class Employee:
         self.classification.classification = 3
         self.classification.hourly = hourly
 
-    def make_commission(self):
+    def make_commissioned(self, salary, hourly):
         self.classification.classification = 2
+        self.classification.salary = salary
+        self.classification.hourly = hourly
+
+    def issue_payment(self):
+        total_pay = 0
+        if self.classification == 1:
+            total_pay = self.classification.salary
+        elif self.classification == 2:
+            total_pay = self.classification.salary
+            sales = 0
+            for i in self.classification.receipts:
+                sales += float(i)
+            total_pay += (sales * self.classification.commission * .01)
+        elif self.classification == 3:
+            hours = 0
+            for i in self.classification.hours_worked:
+                hours += float(i)
+            total_pay = (hours * self.classification.hourly)
+        self.classification.hours_worked = []
+        self.classification.receipts = []
+        file = open("paylog.txt", 'a')
+        file.write(
+            f"Mailing {total_pay:0.2f} to {self.first_name} {self.last_name} at "
+            f"{self.address} {self.city} {self.state} {self.zipcode}\n")
+        return total_pay
 
 
 class Classification:
@@ -37,33 +62,11 @@ class Classification:
         self.hourly = hourly
         self.receipts = []
 
-    def issue_payment(self, employee_lists):
-        current_employee = None
-        for i in employee_lists:
-            if i.classification.classification == self.classification and i.classification.hourly == self.hourly \
-                    and i.classification.commission == self.commission and i.classification.salary == self.salary:
-                current_employee = i
-        total_pay = 0
-        if self.classification == 1:
-            total_pay = self.salary
-        elif self.classification == 2:
-            total_pay = self.salary
-            sales = 0
-            for i in self.receipts:
-                sales += float(i)
-            total_pay += (sales * self.commission * .01)
-        elif self.classification == 3:
-            hours = 0
-            for i in self.hours_worked:
-                hours += float(i)
-            total_pay = (hours * self.hourly)
-        self.classification.hours_worked = []
-        self.classification.receipts = []
-        file = open("payroll.txt", 'a')
-        file.write(
-            f"Mailing {total_pay:0.2f} to {current_employee.first_name} {current_employee.last_name} at "
-            f"{current_employee.address} {current_employee.city} {current_employee.state} {current_employee.zipcode}")
-        return total_pay
+    def add_receipt(self, amount):
+        self.receipts.append(float(amount))
+
+    def add_timecard(self, hours):
+        self.hours_worked.append(float(hours))
 
 
 def find_employee_by_id(employee, employee_lists):
@@ -93,6 +96,7 @@ def load_employees(employee_lists):
         real_employee = Employee(more_lines[0], more_lines[1], more_lines[2], more_lines[3], more_lines[4],
                                  more_lines[5], more_lines[6], real_classification)
         employee_lists.append(real_employee)
+    file.close()
     return employee_lists
 
 
@@ -104,7 +108,11 @@ def process_timecards(employee_lists):
         more_lines = i.split(",")
         current_employee = more_lines[0]
         a = find_employee_by_id(current_employee, employee_lists)
-        a.classification.hours_worked.append(more_lines[1:])
+        try:
+            a.classification.hours_worked.append(more_lines[1:])
+        except AttributeError:
+            pass
+    file.close()
     return employee_lists
 
 
@@ -117,15 +125,16 @@ def process_receipts(employee_lists):
         current_employee = more_lines[0]
         a = find_employee_by_id(current_employee, employee_lists)
         a.classification.receipts.append(more_lines[1:])
+    file.close()
     return employee_lists
 
 
 def run_payroll(employee_lists):
-    if os.path.exists(PAY_LOGFILE):  # pay_log_file is a global variable holding ‘payroll.txt’
-        shutil.move("C:\Users\Donov\Documents\GitHub\DessertShop\payroll.txt",
-                    "C:\Users\Donov\Documents\GitHub\DessertShop\old_payroll.txt")
+    if os.path.exists(PAY_LOGFILE):  # pay_log_file is a global variable holding ‘paylog.txt’
+        shutil.move(r"C:\Users\Donov\Documents\GitHub\DessertShop\paylog.txt",
+                    r"C:\Users\Donov\Documents\GitHub\DessertShop\paylog_old.txt")
     for emp in employee_lists:  # employees is the global list of Employee objects
-        emp.issue_payment(employee_lists)  # issue_payment calls a method in the classification
+        emp.issue_payment()  # issue_payment calls a method in the classification
 
 
 def main():
