@@ -5,6 +5,8 @@ from icecream import IceCream
 from sundae import Sundae
 from customer import Customer
 import pickle
+import argparse
+from dessertshop_gui import runGUI
 
 
 def check_customer(customer_db, real_order):
@@ -251,6 +253,13 @@ def admin_prompt(customer_db):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-g", "--gui", action="store_true")
+    args = parser.parse_args()
+    if str(args) == "Namespace(gui=True)":
+        runGUI()
+    else:
+        main_menu()
     # cookie = Cookie()
     # icecream = IceCream()
     # sundae = Sundae()
@@ -258,7 +267,6 @@ def main():
     # freezer.put(cookie)
     # freezer.put(icecream)
     # freezer.put(sundae)
-    main_menu()
 
 
 if __name__ == "__main__":
