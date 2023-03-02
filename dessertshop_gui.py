@@ -197,7 +197,7 @@ class GUI:
         self.text_box3.grid(row=n, column=2, columnspan=2, sticky="w")
         print("making button")
         self.conformation_button = Button(self.main_window, text="Add to order",
-                                          command=lambda:[self.build_dessert_item(), print("Should work")])
+                                          command=lambda: [self.build_dessert_item(), print("Should work")])
         self.conformation_button.grid(row=n, column=4, )
         print("Made button")
         return
@@ -242,36 +242,37 @@ class GUI:
         if self.a == "1":
             print("building dessert")
             self.dessert_item = Candy(str(self.text_box.get("1.0", "end-1c")),
-                                     float(self.text_box2.get("1.0", "end-1c")),
-                                     float(self.text_box3.get("1.0", "end-1c")))
+                                      float(self.text_box2.get("1.0", "end-1c")),
+                                      float(self.text_box3.get("1.0", "end-1c")))
             print(self.dessert_item)
 
         elif self.a == "2":
             print("building dessert")
             self.dessert_item = Cookie(str(self.text_box.get("1.0", "end-1c")),
-                                      float(self.text_box2.get("1.0", "end-1c")),
-                                      float(self.text_box3.get("1.0", "end-1c")))
+                                       float(self.text_box2.get("1.0", "end-1c")),
+                                       float(self.text_box3.get("1.0", "end-1c")))
             print(self.dessert_item)
 
         elif self.a == "3":
             print("building dessert")
             self.dessert_item = IceCream(str(self.text_box.get("1.0", "end-1c")),
-                                        float(self.text_box2.get("1.0", "end-1c")),
-                                        float(self.text_box3.get("1.0", "end-1c")))
+                                         float(self.text_box2.get("1.0", "end-1c")),
+                                         float(self.text_box3.get("1.0", "end-1c")))
             print(self.dessert_item)
 
         elif self.a == "4":
             print("building dessert")
             self.dessert_item = Sundae(str(self.text_box.get("1.0", "end-1c")),
-                                      float(self.text_box2.get("1.0", "end-1c")),
-                                      float(self.text_box3.get("1.0", "end-1c")),
-                                      str(self.text_box4.get("1.0", "end-1c")),
-                                      float(self.text_box5.get("1.0", "end-1c")))
+                                       float(self.text_box2.get("1.0", "end-1c")),
+                                       float(self.text_box3.get("1.0", "end-1c")),
+                                       str(self.text_box4.get("1.0", "end-1c")),
+                                       float(self.text_box5.get("1.0", "end-1c")))
             print(self.dessert_item)
         return
 
     def print_order(self, n):
         pass
+
 
 def runGUI():
     gui_window = GUI(1000, 1000)
