@@ -1,10 +1,16 @@
 import tkinter
 from tkinter import *
-from dessertshop import *
+from order import Order
+from candy import Candy
+from cookie import Cookie
+from icecream import IceCream
+from sundae import Sundae
+import pickle
 
 
 class GUI:
     def __init__(self, height, width):
+        self.conformation_button1 = None
         self.order = None
         self.a = None
         self.text_box4 = None
@@ -66,9 +72,9 @@ class GUI:
         self.options.trace("w", self.my_show)
 
         n += 2
-        self.conformation_button = Button(self.main_window, text="Continue", command=lambda: self.add_to_order(n))
+        self.conformation_button1 = Button(self.main_window, text="Continue", command=lambda: self.add_to_order(n))
         n -= 2
-        self.conformation_button.grid(row=n, column=4, )
+        self.conformation_button1.grid(row=n, column=4, )
         n += 1
         return
 
@@ -89,6 +95,7 @@ class GUI:
             customer_db = {}
         run = True
         self.order = Order()
+        self.selected_items.insert(0, "6")
         self.a = str(self.selected_items[len(self.selected_items) - 1])
         while run:
             try:
@@ -119,7 +126,13 @@ class GUI:
                         return
                     run = False
                 elif self.a == "6":
+                    print("Identified their is nothing")
                     self.dessert_item = None
+                    self.optionmenu1.configure(state="disabled")
+                    if self.conformation_button1 is not None:
+                        self.conformation_button1.configure(state="disabled")
+                    if self.conformation_button is not None:
+                        self.conformation_button.configure(state="disabled")
                     self.print_order(n)
                     return
                 else:
@@ -147,7 +160,8 @@ class GUI:
 
         self.text_box3 = Text(self.main_window, height=1, width=8)
         self.text_box3.grid(row=n, column=2, columnspan=2, sticky="w")
-
+        if self.conformation_button is not None:
+            self.conformation_button.destroy()
         self.conformation_button = Button(self.main_window, text="Add to order",
                                           command=lambda: self.build_dessert_item())
         self.conformation_button.grid(row=n, column=4, )
@@ -171,7 +185,8 @@ class GUI:
 
         self.text_box3 = Text(self.main_window, height=1, width=8)
         self.text_box3.grid(row=n, column=2, columnspan=2, sticky="w")
-
+        if self.conformation_button is not None:
+            self.conformation_button.destroy()
         self.conformation_button = Button(self.main_window, text="Add to order",
                                           command=lambda: self.build_dessert_item())
         self.conformation_button.grid(row=n, column=4, )
@@ -196,6 +211,8 @@ class GUI:
         self.text_box3 = Text(self.main_window, height=1, width=8)
         self.text_box3.grid(row=n, column=2, columnspan=2, sticky="w")
         print("making button")
+        if self.conformation_button is not None:
+            self.conformation_button.destroy()
         self.conformation_button = Button(self.main_window, text="Add to order",
                                           command=lambda: [self.build_dessert_item(), print("Should work")])
         self.conformation_button.grid(row=n, column=4, )
@@ -230,7 +247,8 @@ class GUI:
 
         self.text_box5 = Text(self.main_window, height=1, width=8)
         self.text_box5.grid(row=n, column=4, columnspan=2, sticky="w")
-
+        if self.conformation_button is not None:
+            self.conformation_button.destroy()
         self.conformation_button = Button(self.main_window, text="Add to order",
                                           command=lambda: self.build_dessert_item())
         self.conformation_button.grid(row=n, column=5, )
@@ -271,7 +289,51 @@ class GUI:
         return
 
     def print_order(self, n):
-        pass
+        print("Went into print order function")
+        self.label1 = tkinter.Label(self.main_window, text="Enter the customer name:")
+        self.label1.grid(row=n + 6, column=0, sticky="w")
+
+        self.text_box = Text(self.main_window, height=1, width=25)
+        self.text_box.grid(row=n + 6, column=1, columnspan=3, sticky="w")
+
+        self.label1 = tkinter.Label(self.main_window, text="What form of payment will be used? (Cash, Card, Phone):")
+        self.label1.grid(row=n + 7, column=0, sticky="w")
+
+        self.dict1 = {1: "Cash", 2: "Card", 3: "Phone"}
+        self.options = tkinter.StringVar(self.main_window)
+        self.options.set(self.dict1[1])
+
+        self.optionmenu1 = OptionMenu(self.main_window, self.options, *self.dict1.values())
+        self.optionmenu1.grid(row=n + 7, column=1)
+
+        self.options.trace("w", self.my_show)
+
+        n += 2
+        self.conformation_button1 = Button(self.main_window, text="Print Receipt", command=lambda: self.print_receipt())
+        n -= 2
+        self.conformation_button1.grid(row=n + 7, column=4, )
+
+    def print_receipt(self):
+        print("------------Receipt---------------")
+
+        for i in range(len(self.order.order)):
+            print(self.order.order[i])
+        print("------------------------------------------------------")
+        print(f"Total items in the order: {self.order.item_count()}")
+        order_sub = "Order Subtotals:|"
+        order_total = "Order Total:"
+        order_num = f"${self.order.order_cost():0.2f}"
+        this_string = f"{order_sub:26}"
+        this_string += f"{order_num:24}"
+        this_string += f"[Tax: ${self.order.order_tax():0.2f}]"
+        print(f"{this_string}")
+        that_string = f"{order_total:50}"
+        x = self.order.order_cost() + self.order.order_tax()
+        that_string += f"${x:0.2f}"
+        print(that_string)
+        print("------------------------------------------------------")
+        print(f"Paid with {self.order.pay_type.value}")
+        print("-------------------------------------------------------")
 
 
 def runGUI():

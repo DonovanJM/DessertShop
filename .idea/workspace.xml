@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17e8f210-052d-4303-8036-9091827c23ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/old_dessertshop.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dessertshop.py" beforeDir="false" afterPath="$PROJECT_DIR$/dessertshop.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dessertshop_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/dessertshop_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_dessertshop.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,9 +147,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.dessertshop_gui" />
+        <item itemvalue="Python.dessertshop" />
         <item itemvalue="Python.old_dessertshop" />
         <item itemvalue="Python.payroll" />
-        <item itemvalue="Python.dessertshop" />
         <item itemvalue="Python tests.Python tests in payroll.py" />
       </list>
     </recent_temporary>
