@@ -4,6 +4,7 @@ from order import Order
 from candy import Candy
 from cookie import Cookie
 from icecream import IceCream
+from payment import Payment
 from sundae import Sundae
 import pickle
 
@@ -133,6 +134,17 @@ class GUI:
                         self.conformation_button1.configure(state="disabled")
                     if self.conformation_button is not None:
                         self.conformation_button.configure(state="disabled")
+                    if self.text_box is not None:
+                        self.text_box.configure(state="disabled")
+                    if self.text_box2 is not None:
+                        self.text_box2.configure(state="disabled")
+                    if self.text_box3 is not None:
+                        self.text_box3.configure(state="disabled")
+                    if self.text_box4 is not None:
+                        self.text_box4.configure(state="disabled")
+                    if self.text_box5 is not None:
+                        self.text_box5.configure(state="disabled")
+
                     self.print_order(n)
                     return
                 else:
@@ -314,8 +326,16 @@ class GUI:
         self.conformation_button1.grid(row=n + 7, column=4, )
 
     def print_receipt(self):
+        self.selected_items.insert(0, "1")
+        self.a = str(self.selected_items[len(self.selected_items) - 1])
+        if self.a == "1":
+            self.order.pay_type = Payment.pay_type.CASH
+        elif self.a == "2":
+            self.order.pay_type = Payment.pay_type.CARD
+        elif self.a == "3":
+            self.order.pay_type = Payment.pay_type.PHONE
+        self.order.customer_name = self.text_box.get("1.0", "end-1c")
         print("------------Receipt---------------")
-
         for i in range(len(self.order.order)):
             print(self.order.order[i])
         print("------------------------------------------------------")
