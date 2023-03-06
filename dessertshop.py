@@ -1,5 +1,6 @@
 from order import Order
 from candy import Candy
+from dessert import DessertItem
 from cookie import Cookie
 from icecream import IceCream
 from payment import Payment
@@ -14,7 +15,7 @@ import tkinter
 class GUI:
     def __init__(self, height, width):
         self.conformation_button1 = None
-        self.order = None
+        self.order = Order()
         self.a = None
         self.text_box4 = None
         self.text_box5 = None
@@ -30,7 +31,8 @@ class GUI:
         self.blank = None
         self.dict1 = None
         self.selected_items = []
-        self.dessert_item = None
+        self.dessert_item = DessertItem()
+        self.customer = Customer()
 
         self.main_window = tkinter.Tk(className="Dessert shop")
         self.main_window.geometry(f"{height}x{width}")
@@ -75,7 +77,8 @@ class GUI:
         self.options.trace("w", self.my_show)
 
         n += 2
-        self.conformation_button1 = tkinter.Button(self.main_window, text="Continue", command=lambda: self.add_to_order(n))
+        self.conformation_button1 = tkinter.Button(self.main_window,
+                                                   text="Continue", command=lambda: self.add_to_order(n))
         n -= 2
         self.conformation_button1.grid(row=n, column=4, )
         n += 1
@@ -97,7 +100,6 @@ class GUI:
         except EOFError:
             customer_db = {}
         run = True
-        self.order = Order()
         self.selected_items.insert(0, "6")
         self.a = str(self.selected_items[len(self.selected_items) - 1])
         while run:
@@ -105,22 +107,23 @@ class GUI:
                 if self.a == "1":
                     print("identified its a candy")
                     self.user_prompt_candy(n)
-                    self.order.add(self.dessert_item)
+                    print("anything")
                     return
                 elif self.a == "2":
                     # freezer.take(Cookie)
                     self.user_prompt_cookie(n)
-                    self.order.add(self.dessert_item)
+                    print(self.order.order[0])
+                    print(self.order.order[1])
                     return
                 elif self.a == "3":
                     # freezer.take(IceCream)
                     self.user_prompt_ice_cream(n)
-                    self.order.add(self.dessert_item)
+                    self.order.__str__()
                     return
                 elif self.a == "4":
                     # freezer.take(Sundae)
                     self.user_prompt_sundae(n)
-                    self.order.add(self.dessert_item)
+                    self.order.__str__()
                     return
                 elif self.a == "5":
                     admin_prompt(customer_db)
@@ -130,7 +133,6 @@ class GUI:
                     run = False
                 elif self.a == "6":
                     print("Identified their is nothing")
-                    self.dessert_item = None
                     self.optionmenu1.configure(state="disabled")
                     if self.conformation_button1 is not None:
                         self.conformation_button1.configure(state="disabled")
@@ -147,7 +149,7 @@ class GUI:
                     if self.text_box5 is not None:
                         self.text_box5.configure(state="disabled")
 
-                    self.print_order(n)
+                    self.print_order(n, customer_db)
                     return
                 else:
                     print("Invalid dessert type, please enter 1-4.")
@@ -179,7 +181,6 @@ class GUI:
         self.conformation_button = tkinter.Button(self.main_window, text="Add to order",
                                                   command=lambda: self.build_dessert_item())
         self.conformation_button.grid(row=n, column=4, )
-        return
 
     def user_prompt_cookie(self, n):
         print("Went into cookie function")
@@ -204,7 +205,6 @@ class GUI:
         self.conformation_button = tkinter.Button(self.main_window, text="Add to order",
                                                   command=lambda: self.build_dessert_item())
         self.conformation_button.grid(row=n, column=4, )
-        return
 
     def user_prompt_ice_cream(self, n):
         print("Went into ice cream function")
@@ -231,7 +231,6 @@ class GUI:
                                                   command=lambda: [self.build_dessert_item(), print("Should work")])
         self.conformation_button.grid(row=n, column=4, )
         print("Made button")
-        return
 
     def user_prompt_sundae(self, n):
         print("Went into ice cream function")
@@ -266,43 +265,47 @@ class GUI:
         self.conformation_button = tkinter.Button(self.main_window, text="Add to order",
                                                   command=lambda: self.build_dessert_item())
         self.conformation_button.grid(row=n, column=5, )
-        return
 
     def build_dessert_item(self):
         print("went into build dessert")
         print(self.a)
         if self.a == "1":
-            print("building dessert")
+            print("building candy")
             self.dessert_item = Candy(str(self.text_box.get("1.0", "end-1c")),
                                       float(self.text_box2.get("1.0", "end-1c")),
                                       float(self.text_box3.get("1.0", "end-1c")))
-            print(self.dessert_item)
+            print("built candy")
+            self.order.add(self.dessert_item)
+            print("built candy")
 
         elif self.a == "2":
-            print("building dessert")
+            print("building Cookie")
             self.dessert_item = Cookie(str(self.text_box.get("1.0", "end-1c")),
                                        float(self.text_box2.get("1.0", "end-1c")),
                                        float(self.text_box3.get("1.0", "end-1c")))
             print(self.dessert_item)
+            self.order.add(self.dessert_item)
 
         elif self.a == "3":
-            print("building dessert")
+            print("building Ice cream")
             self.dessert_item = IceCream(str(self.text_box.get("1.0", "end-1c")),
                                          float(self.text_box2.get("1.0", "end-1c")),
                                          float(self.text_box3.get("1.0", "end-1c")))
             print(self.dessert_item)
+            self.order.add(self.dessert_item)
 
         elif self.a == "4":
-            print("building dessert")
+            print("building Sundae")
             self.dessert_item = Sundae(str(self.text_box.get("1.0", "end-1c")),
                                        float(self.text_box2.get("1.0", "end-1c")),
                                        float(self.text_box3.get("1.0", "end-1c")),
                                        str(self.text_box4.get("1.0", "end-1c")),
                                        float(self.text_box5.get("1.0", "end-1c")))
             print(self.dessert_item)
+            self.order.add(self.dessert_item)
         return
 
-    def print_order(self, n):
+    def print_order(self, n, customer_db):
         print("Went into print order function")
         self.label1 = tkinter.Label(self.main_window, text="Enter the customer name:")
         self.label1.grid(row=n + 6, column=0, sticky="w")
@@ -323,12 +326,12 @@ class GUI:
         self.options.trace("w", self.my_show)
 
         n += 2
-        self.conformation_button1 = tkinter.Button(self.main_window, text="Print Receipt", command=lambda: self.print_receipt())
+        self.conformation_button1 = tkinter.Button(self.main_window, text="Print Receipt", command=lambda:
+        self.print_receipt(customer_db))
         n -= 2
         self.conformation_button1.grid(row=n + 7, column=4, )
 
-    def print_receipt(self):
-        self.selected_items.insert(0, "1")
+    def print_receipt(self, customer_db):
         self.a = str(self.selected_items[len(self.selected_items) - 1])
         if self.a == "1":
             self.order.pay_type = Payment.pay_type.CASH
@@ -337,25 +340,10 @@ class GUI:
         elif self.a == "3":
             self.order.pay_type = Payment.pay_type.PHONE
         self.order.customer_name = self.text_box.get("1.0", "end-1c")
-        print("------------Receipt---------------")
-        for i in range(len(self.order.order)):
-            print(self.order.order[i])
-        print("------------------------------------------------------")
-        print(f"Total items in the order: {self.order.item_count()}")
-        order_sub = "Order Subtotals:|"
-        order_total = "Order Total:"
-        order_num = f"${self.order.order_cost():0.2f}"
-        this_string = f"{order_sub:26}"
-        this_string += f"{order_num:24}"
-        this_string += f"[Tax: ${self.order.order_tax():0.2f}]"
-        print(f"{this_string}")
-        that_string = f"{order_total:50}"
-        x = self.order.order_cost() + self.order.order_tax()
-        that_string += f"${x:0.2f}"
-        print(that_string)
-        print("------------------------------------------------------")
-        print(f"Paid with {self.order.pay_type.value}")
-        print("-------------------------------------------------------")
+        self.customer.customer_name = self.text_box.get("1.0", "end-1c")
+        self.order.sort_order()
+        self.order.__str__()
+        check_customer(customer_db, self.order).__str__()
 
 
 def check_customer(customer_db, real_order):
